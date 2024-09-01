@@ -32,7 +32,7 @@ const CreateWallet = () => {
   const generateKeypair = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:8000/generate-key-pair", {
+      const response = await fetch("https://building-defi-dapp-on-stellar-back-end.vercel.app/generate-key-pair", {
         method: "GET",
       });
       const data = await response.json();
@@ -54,7 +54,7 @@ const CreateWallet = () => {
     try {
       setIsLoading(true);
       toast.loading("Wait for Transactions.....");
-      const response = await fetch("http://localhost:8000/fund-account", {
+      const response = await fetch("https://building-defi-dapp-on-stellar-back-end.vercel.app/fund-account", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ publicKey: publicKeyToFund }),

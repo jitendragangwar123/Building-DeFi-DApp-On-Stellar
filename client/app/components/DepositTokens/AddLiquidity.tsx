@@ -20,7 +20,7 @@ const AddLiquidity: React.FC = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/deposit-tokens", {
+      const response = await fetch("https://building-defi-dapp-on-stellar-back-end.vercel.app/deposit-tokens", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -12,7 +12,7 @@ const {
 
 
 exports.welcomeMsg = async (req, res) => {
-    res.status(200).json({ message: "Welcome to Stellar Dapps!" });
+    res.status(200).json({ message: "Welcome to Stellar DeFi Dapps!" });
 };
 
 exports.generateKeyPair = async (req, res) => {
