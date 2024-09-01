@@ -119,7 +119,7 @@ exports.withdrawTokens = async (req, res) => {
         withdrawTransaction.sign(keypair);
         const result = await server.sendTransaction(withdrawTransaction);
 
-        res.json({ message: 'Withdrawal successful', transactionHash: result.hash });
+        res.json({ message: 'Withdrawal successful', transactionHash: result});
     } catch (error) {
         res.status(500).json({ error: `Error withdrawing tokens: ${error.message}` });
     }
@@ -155,7 +155,7 @@ exports.swapTokens = async (req, res) => {
         swapTransaction.sign(keypair);
         const result = await server.sendTransaction(swapTransaction);
 
-        res.json({ message: 'Swap successful', transactionHash: result.hash });
+        res.json({ message: 'Swap successful', transactionHash: result});
     } catch (error) {
         res.status(500).json({ error: `Error performing swap: ${error.message}` });
     }
