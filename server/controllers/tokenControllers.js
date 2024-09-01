@@ -9,7 +9,7 @@ const {
     BASE_FEE,
     Networks
 } = require('@stellar/stellar-sdk');
-//const fetch = require('node-fetch');
+
 
 exports.welcomeMsg = async (req, res) => {
     res.status(200).json({ message: "Welcome to Stellar Dapps!" });
@@ -59,7 +59,7 @@ exports.fundAccount = async (req, res) => {
 exports.depositTokens = async (req, res) => {
     const { secretKey, tokenName, amountA, amountB } = req.body;
     const server = new SorobanRpc.Server('https://soroban-testnet.stellar.org');
-    
+
     try {
         const keypair = Keypair.fromSecret(secretKey);
         const account = await server.getAccount(keypair.publicKey());
@@ -68,28 +68,28 @@ exports.depositTokens = async (req, res) => {
         const liquidityPoolAsset = new LiquidityPoolAsset(Asset.native(), asset, 30);
         const liquidityPoolId = getLiquidityPoolId('constant_product', liquidityPoolAsset).toString('hex');
 
-        
+
         const depositTransaction = new TransactionBuilder(account, {
             fee: BASE_FEE,
             networkPassphrase: Networks.TESTNET
         })
-        .addOperation(Operation.changeTrust({
-            asset: liquidityPoolAsset
+            .addOperation(Operation.changeTrust({
+                asset: liquidityPoolAsset
             }))
-        .addOperation(Operation.liquidityPoolDeposit({
-            liquidityPoolId: liquidityPoolId,
-            maxAmountA: amountA,
-            maxAmountB: amountB,
-            minPrice: { n: 1, d: 1 },
-            maxPrice: { n: 1, d: 1 }
-        }))
-        .setTimeout(30)
-        .build();
+            .addOperation(Operation.liquidityPoolDeposit({
+                liquidityPoolId: liquidityPoolId,
+                maxAmountA: amountA,
+                maxAmountB: amountB,
+                minPrice: { n: 1, d: 1 },
+                maxPrice: { n: 1, d: 1 }
+            }))
+            .setTimeout(30)
+            .build();
 
         depositTransaction.sign(keypair);
         const result = await server.sendTransaction(depositTransaction);
 
-        res.json({ message: 'Deposit successful',asset, liquidityPoolId, transactionHash: result});
+        res.json({ message: 'Deposit successful', asset, liquidityPoolId, transactionHash: result });
     } catch (error) {
         res.status(500).json({ error: `Error depositing tokens: ${error.message}` });
     }
@@ -102,19 +102,19 @@ exports.withdrawTokens = async (req, res) => {
     try {
         const keypair = Keypair.fromSecret(secretKey);
         const account = await server.getAccount(keypair.publicKey());
-        
+
         const withdrawTransaction = new TransactionBuilder(account, {
             fee: BASE_FEE,
             networkPassphrase: Networks.TESTNET
         })
-        .addOperation(Operation.liquidityPoolWithdraw({
-            liquidityPoolId: liquidityPoolId,
-            amount: amount,
-            minAmountA: '0',
-            minAmountB: '0'
-        }))
-        .setTimeout(30)
-        .build();
+            .addOperation(Operation.liquidityPoolWithdraw({
+                liquidityPoolId: liquidityPoolId,
+                amount: amount,
+                minAmountA: '0',
+                minAmountB: '0'
+            }))
+            .setTimeout(30)
+            .build();
 
         withdrawTransaction.sign(keypair);
         const result = await server.sendTransaction(withdrawTransaction);
@@ -125,7 +125,7 @@ exports.withdrawTokens = async (req, res) => {
     }
 };
 
-exports.swapTokens =  async (req, res) => {
+exports.swapTokens = async (req, res) => {
     const { secretKey, destAssetCode, issuerAddress, sendMax, destAmount } = req.body;
     const server = new SorobanRpc.Server('https://soroban-testnet.stellar.org');
 
@@ -137,20 +137,20 @@ exports.swapTokens =  async (req, res) => {
             fee: BASE_FEE,
             networkPassphrase: Networks.TESTNET
         })
-        .addOperation(Operation.changeTrust({
-            asset: destAsset,
-            source: keypair.publicKey()
+            .addOperation(Operation.changeTrust({
+                asset: destAsset,
+                source: keypair.publicKey()
             }))
-        .addOperation(Operation.pathPaymentStrictReceive({
-            sendAsset: Asset.native(),
-            sendMax: sendMax,
-            destination: keypair.publicKey(),
-            destAsset: destAsset,
-            destAmount: destAmount,
-            source: keypair.publicKey(),
-        }))
-        .setTimeout(30)
-        .build();
+            .addOperation(Operation.pathPaymentStrictReceive({
+                sendAsset: Asset.native(),
+                sendMax: sendMax,
+                destination: keypair.publicKey(),
+                destAsset: destAsset,
+                destAmount: destAmount,
+                source: keypair.publicKey(),
+            }))
+            .setTimeout(30)
+            .build();
 
         swapTransaction.sign(keypair);
         const result = await server.sendTransaction(swapTransaction);
@@ -160,5 +160,3 @@ exports.swapTokens =  async (req, res) => {
         res.status(500).json({ error: `Error performing swap: ${error.message}` });
     }
 };
-
-
