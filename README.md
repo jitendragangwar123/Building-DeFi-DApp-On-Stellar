@@ -61,7 +61,3 @@ This platform utilizes the Stellar SDK for JavaScript to interact with the Stell
 - **Liquidity Pool Creation**: [https://stellar.expert/explorer/testnet/tx/656dcd4c6d9b10cdde28849340ce84e19f504def4ecb5388b78776435d6896cd](https://stellar.expert/explorer/testnet/tx/656dcd4c6d9b10cdde28849340ce84e19f504def4ecb5388b78776435d6896cd)
 - **Swap Execution**: [https://stellar.expert/explorer/testnet/tx/9625e33cceabffb0b302f1a52f59a3fe36bddcb3d725cb899fb443cca59d66d7](https://stellar.expert/explorer/testnet/tx/9625e33cceabffb0b302f1a52f59a3fe36bddcb3d725cb899fb443cca59d66d7)
 - **Withdrawal**: [https://stellar.expert/explorer/testnet/tx/a22b220303ea095363b3b1aa334648226e132f52f74e301f2c7d363e8cec08b4](https://stellar.expert/explorer/testnet/tx/a22b220303ea095363b3b1aa334648226e132f52f74e301f2c7d363e8cec08b4)
-
-### Social Media Post
-You can view My post here: [https://x.com/Jitendr25070341/status/1830297386091942203](https://x.com/Jitendr25070341/status/1830297386091942203)
-
